@@ -1,0 +1,26 @@
+# r script
+# divide aleatoriamente los archivos de una carpeta en tres carpetas
+# 2021-08-08
+
+getwd() #  por si  necesitan saber el dir actual
+setwd(paste0(getwd(),"/images/yemas/yemas_xml" ))
+dir() # para ver que  detecta bien a todos los archivos
+vec <- list.files( pattern='JPG')
+vec_df <- as.data.frame(vec)
+set.seed(123)
+ss <- sample(1:3,size=nrow(vec_df),replace=TRUE,prob=c(0.6,0.2,0.2))
+train_vev  <- vec_df[ss==1,]
+test_vec   <- vec_df[ss==2,]
+prueba_vec <- vec_df[ss==3,]
+
+file.copy(from  =train_vev, to= 'train',
+          overwrite = TRUE, recursive = FALSE,
+          copy.mode = TRUE)
+
+file.copy(from  =test_vec, to= 'test',
+          overwrite = TRUE, recursive = FALSE,
+          copy.mode = TRUE)
+
+file.copy(from  = prueba_vec, to= 'prueba',
+          overwrite = TRUE, recursive = FALSE,
+          copy.mode = TRUE)
